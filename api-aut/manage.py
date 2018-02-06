@@ -12,23 +12,24 @@ app = Flask(__name__)
 users = list()
 
 
-@app.error_handlers(404)
+@app.errorhandler(404)
 def page_not_found(e):
     return "404 Page", 404
 
 
-@app.error_handlers(500)
-def page_not_found(e):
+@app.errorhandler(500)
+def internal_server_error(e):
     return "500 Page", 404
 
 
-@app.route('/user/<id>')
-def show_user_profile(id):
+@app.route('/user/<user_id>', methods=['GET'])
+def show_user_profile(user_id):
     # show the user profile for that user
-    if int(id) == 1:
-        return 'admin'
-    else:
-        return 'others'
+    for user in users:
+        if user.id == int(user_id):
+            break
+    resp = make_response(json.dumps({"name": user.name, "age": user.age}), 200)
+    return resp
 
 
 @app.route('/user', methods=['POST'])
@@ -37,7 +38,12 @@ def create_user():
     json_data = json.loads(data)
     name = json_data.get('name')
     age = json_data.get('age')
+    user = User(name, age)
+    users.append(user)
+    user_id = user.id
     print(name, age)
+    resp = make_response(json.dumps({"userID": user_id}), 200)
+    return resp
 
 
 
