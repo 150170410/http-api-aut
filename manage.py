@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
-# start entry
+# author: zengyuetian
+# main script
 
 import json
 from flask import Flask
