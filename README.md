@@ -7,7 +7,7 @@
 - 使用简单，一键启动。
 
 # 运行
-- python manage.py
+- python main.py
 
 # 数据结构
 - 用户信息存储在内存中，用列表存储

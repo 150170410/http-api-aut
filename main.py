@@ -6,7 +6,23 @@
 import json
 from flask import Flask
 from flask import request, make_response
-from user import User
+
+
+class User(object):
+    index = 0
+
+    def __init__(self, name, age):
+        User.index += 1
+        self.id = User.index
+        self.name = name
+        self.age = age
+
+    @staticmethod
+    def show():
+        print("-------- {0} users exist --------".format(len(users)))
+        for user in users:
+            print("user_id:{0}, user_name:{1}, user_age:{2}".format(user.id, user.name, user.age))
+
 
 app = Flask(__name__)
 users = list()
@@ -19,7 +35,7 @@ def page_not_found():
 
 @app.errorhandler(500)
 def internal_server_error():
-    return "500 Page", 404
+    return "500 Page", 500
 
 
 @app.route('/user', methods=['POST'])
@@ -36,7 +52,7 @@ def create_user():
     # 返回新的用户ID
     resp = make_response(json.dumps({"userID": user_id}), 200)
 
-    print_users()
+    User.show()
     return resp
 
 
@@ -52,7 +68,7 @@ def get_user(user_id):
         # 没有找到
         resp = make_response(json.dumps({}), 404)
 
-    print_users()
+    User.show()
     return resp
 
 
@@ -74,7 +90,7 @@ def update_user(user_id):
         # 没有找到
         resp = make_response(json.dumps({}), 404)
 
-    print_users()
+    User.show()
     return resp
 
 
@@ -90,14 +106,9 @@ def delete_user(user_id):
         # 没有找到指定用户
         resp = make_response(json.dumps({}), 404)
 
-    print_users()
+    User.show()
     return resp
 
-
-def print_users():
-    print("-------- {0} users exist --------".format(len(users)))
-    for user in users:
-        print("user_id:{0}, user_name:{1}, user_age:{2}".format(user.id, user.name, user.age))
 
 if __name__ == '__main__':
     # start application
