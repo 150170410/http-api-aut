@@ -1,23 +1,24 @@
-# API-AUT 
-- HTTP API Application Under Testing
-- 基于Python Flask
-- 为了展示如何使用自动化测试框架而创建的待测应用，相当于一个Mock Server
+# HTTP API Application Under Test
+- 为了开发自动化测试框架，常常需要一个靶子，也就是待测应用。
+- http-api-aut是一个非常简单的HTTP接口待测应用，实现了用户信息的增删改查，相当于Mock Server。
+- 支持POST,GET,PUT,DELETE等基本HTTP请求方法。
+- 请求体和响应体为application/json类型。
+- 基于Python Flask开发。
+- 使用简单，一键启动。
 
 # 运行
 - python manage.py
-
 
 # 数据结构
 - 用户信息存储在内存中，用列表存储
 - 用户基本信息包含：用户ID，用户名，用户年龄，参见user.py
 
-
 # 接口列表
-- 一共4个接口
-- 用户创建: POST(非幂等操作)
-- 用户查询: GET
-- 用户更新: PUT(幂等操作，提供更新后的完整信息)
-- 用户删除: DELETE
+- 4个接口用于用户管理
+    - 用户创建: POST(非幂等操作)
+    - 用户查询: GET
+    - 用户更新: PUT(幂等操作，提供更新后的完整信息)
+    - 用户删除: DELETE
 
 ## 用户创建
 ###  请求格式
@@ -27,8 +28,8 @@
 ### 请求体
 ```json
 {  
-  "name": "string",
-  "age": "int"
+  "name": "python",
+  "age": 24
 }
 ```
 ### 请求参数含义
@@ -43,7 +44,7 @@
 ### 响应body
 ```json
 {  
-    "userID": "int"
+    "userID": 1
 }
 ```
 
@@ -63,7 +64,8 @@
 ### 响应body
 ```json
 {
-  "userName": "tester"
+  "userName": "python",
+  "age": 24
 }
 ``` 
 
@@ -77,8 +79,8 @@
 ### 请求体
 ```json
 {  
-  "name": "string",
-  "age": "int"
+  "name": "python",
+  "age": 24
 }
 ```
 ### 请求参数含义
