@@ -6,6 +6,17 @@
 import json
 from flask import Flask
 from flask import request, make_response
+from flask_sqlalchemy import SQLAlchemy
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(120), unique=True)
+
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
 
 
 class User(object):
@@ -25,6 +36,9 @@ class User(object):
 
 
 app = Flask(__name__)
+# mysql user=root, password = 123456
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:123456@localhost/api'
+db = SQLAlchemy(app)
 users = list()
 
 
