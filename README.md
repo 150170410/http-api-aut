@@ -9,6 +9,7 @@
 # 运行
 - python main.py
 
+
 # 数据结构
 - 用户信息存储在MySQL数据库中，数据库名为"api"，表名为"user"
 - 用户基本信息包含：用户ID，用户名，用户年龄
@@ -19,6 +20,54 @@
     - 用户查询: GET
     - 用户更新: PUT(幂等操作，提供更新后的完整信息)
     - 用户删除: DELETE
+## 接口使用
+- 用户创建
+```
+curl -X POST \
+  http://localhost:8080/user \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 8f52146e-2e9b-4287-9a73-430b85a7b9e2' \
+  -d '{
+  "name":"Python",
+  "age":12
+
+}'
+```
+
+- 用户查询
+```
+curl -X GET \
+  http://localhost:8080/user/1 \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Postman-Token: 23ebf87b-df79-47d5-9607-c990368c432c'
+```
+
+- 用户更新
+```
+curl -X PUT \
+  http://localhost:8080/user/1 \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 81edae3e-c235-4e66-a52f-17fcc38a97ba' \
+  -d '{
+  "name":"python1",
+  "age":20
+
+}'
+```
+
+- 用户删除
+```
+curl -X DELETE \
+  http://localhost:8080/user/1 \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Postman-Token: c08ad01a-8592-4d2a-be7a-091476d5ffe8'
+```
 
 ## 用户创建
 ###  请求格式
